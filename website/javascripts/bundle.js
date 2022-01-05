@@ -253,7 +253,7 @@ var PageControls = /*#__PURE__*/function () {
     value: function populateSelectBox() {
       var _this2 = this;
 
-      this.reader.getAreas().forEach(function (areaElement, index) {
+      this.reader.getAreas().filter((areaElement) => areaElement.areaName !== undefined).sort((areaElement1, areaElement2) => areaElement1.areaName.toLowerCase().localeCompare(areaElement2.areaName.toLowerCase())).forEach(function (areaElement, index) {
         if (!areaElement.rooms.length) {
           return;
         }
@@ -1798,7 +1798,7 @@ var MapReader = /*#__PURE__*/function () {
         return isWithinBounds;
       }), zIndex, levels);
 
-      if (!levels.has(zIndex)) {
+      if (area.rooms.length > 0 && !levels.has(zIndex)) {
         candidateArea = this.getArea(areaId, levels.values().next().value);
       }
 
